@@ -1,4 +1,4 @@
-import { PostData } from "../../posts/PostData";
+import { PostData } from "../../Posts/PostData";
 import { Post } from "./Post";
 
 export function PostsView({ posts }: { posts: PostData[] }) {

@@ -1,4 +1,4 @@
-import { PostData } from "../../posts/PostData";
+import { PostData } from "../../types";
 
 export function PostForm({ post }: { post: PostData }) {
     return (
