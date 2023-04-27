@@ -1,16 +1,15 @@
 import { NavLink } from "react-router-dom";
 
-export function Sidebar() {
+export function Sidebar({ userName }: { userName: string }) {
   return (
-    <aside className="bg-blue-400 p-4">
+    <aside className="bg-background-color text-text-color p-4 text-lg flex fixed top-1/2 -translate-y-1/2 ">
       <nav>
         <ul>
-          <li><NavLink to="/">Profile</NavLink></li>
-          <li><NavLink to="/messages">messages</NavLink></li>
-          <li><NavLink to="/friends">friends</NavLink></li>
-          <li><NavLink to="/news">news</NavLink></li>
-          <li><NavLink to="/music">music</NavLink></li>
-          <li><NavLink to="/settings">settings</NavLink></li>
+          <li><NavLink className={(e) => `block p-2 rounded-lg ${e.isActive ? "bg-info-color" : ""}`} to="/">News</NavLink></li>
+          <li><NavLink className={(e) => `block p-2 rounded-lg ${e.isActive ? "bg-info-color" : ""}`} to="/messages">Messages</NavLink></li>
+          <li><NavLink className={(e) => `block p-2 rounded-lg ${e.isActive ? "bg-info-color" : ""}`} to={`/me`}>Profile</NavLink></li>
+          <li><NavLink className={(e) => `block p-2 rounded-lg ${e.isActive ? "bg-info-color" : ""}`} to="/users">Users</NavLink></li>
+          <li><NavLink className={(e) => `block p-2 rounded-lg ${e.isActive ? "bg-info-color" : ""}`} to="/music">Music</NavLink></li>
         </ul>
       </nav>
     </aside>

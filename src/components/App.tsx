@@ -1,24 +1,40 @@
 import { Route, Routes } from "react-router-dom";
-import { Messages } from "./Messages/Messages";
-import { Header } from "./Header";
 import { Profile } from "./Profile/Profile";
 import { Sidebar } from "./Sidebar";
 import { useGetCurrentUserQuery } from "../redux/features/api/apiSlice";
+import { Login } from "./Login/Login";
+import { Conversation } from "./Messages/Conversation";
+import { Dialogs } from "./Messages/Dialogs";
+import { News } from "./News/News";
+import { ProfileEdit } from "./Profile/ProfileEdit";
+import { Users } from "./Users/Users";
 
 export function App() {
-  const { data } = useGetCurrentUserQuery()
+  const { data, error } = useGetCurrentUserQuery()
+
+  if (error) {
+    return <Login />
+  }
+
+  if (data === undefined) {
+    return null
+  }
+
   return (
-    <div className="grid grid-cols-auto_1_1 grid-rows-auto_1 h-full">
-      <Header />
-      <Sidebar />
-      <main className="bg-slate-100 col-span-2 flex">
+    <div className="bg-background-color relative h-full">
+      <Sidebar userName={data.name} />
+      <main className="h-full">
         <Routes>
-          <Route Component={Profile} path="/" />
-          <Route Component={Messages} path="/messages/:id?" />
+          <Route element={<ProfileEdit currentUser={data} />} path={`/users/${data.name}`} />
+          <Route element={<ProfileEdit currentUser={data} />} path="/me" />
+          <Route Component={Dialogs} path="/messages" />
+          <Route Component={Conversation} path="/conversations/:id" />
+          <Route element={<Profile />} path="/users/:name" />
+          <Route Component={Users} path="/users" />
+          <Route Component={News} path="/" />
         </Routes>
       </main>
     </div>
-
   )
 }
 
