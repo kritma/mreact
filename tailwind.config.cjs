@@ -5,9 +5,15 @@ module.exports = {
   ],
   theme: {
     extend: {
+      gridTemplateRows: {
+        "auto_1": "auto 1fr",
+      },
       gridTemplateColumns: {
         "1_2": "1fr 2fr",
         "auto_1": "auto 1fr",
+      },
+      height: {
+        "full-24": 'calc(100% + 6rem)'
       },
       colors: {
         "background-color": "#312e38",

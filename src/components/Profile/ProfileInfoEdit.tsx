@@ -35,7 +35,7 @@ export function ProfileInfoEdit({ user }: { user: UserData }) {
                 </h1>
                 <button onClick={onSendMessagePressed} className="bg-active-color ml-auto rounded-lg p-2 hover:bg-active-color-hover block">Send message</button>
                 <SubscribeButton user={user} />
-                <button onClick={onLogoutPressed} className="bg-red-600 hover:bg-red-500 rounded-lg p-2 block">logout</button>
+                <button onClick={onLogoutPressed} className="bg-red-600 hover:bg-red-700 rounded-lg p-2 block">logout</button>
             </div>
         </div>
     )

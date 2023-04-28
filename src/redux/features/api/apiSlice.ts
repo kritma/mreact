@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { ApiErrorLogin, ApiErrorProfile, DialogData, MessageData, PostData, ProfileData, UserData } from '../../../types'
+import { ApiErrorLogin, ApiErrorProfile, DialogData, MessageData, PostData, ProfileData, SongData, UserData } from '../../../types'
 
 import type {
     BaseQueryFn,
@@ -47,7 +47,7 @@ export const apiSlice = createApi({
                     'Content-type': 'application/json',
                 },
             }),
-            invalidatesTags: ['CurrentUser', 'News', 'CurrentUserPosts', 'Subscriptions', 'Dialogs'],
+            invalidatesTags: ['CurrentUser', 'News', 'CurrentUserPosts', 'Subscriptions', 'Dialogs', 'Messages'],
         }),
         getCurrentUser: builder.query<UserData, void>({
             query: () => '/me',
@@ -91,9 +91,6 @@ export const apiSlice = createApi({
                 }
             },
             invalidatesTags: ['CurrentUserPosts', 'News']
-        }),
-        searchUsers: builder.query<UserData[], string>({
-            query: (name) => `/search/users/${name}`,
         }),
         getProfile: builder.query<ProfileData | ApiErrorProfile, string>({
             query: (name) => `/profiles/${name}`,
@@ -151,6 +148,45 @@ export const apiSlice = createApi({
         getUsers: builder.query<UserData[], string>({
             query: (name) => `/search/users/${name}`,
         }),
+        getSongs: builder.query<SongData[], string>({
+            query: (name) => `/search/songs/${name}`,
+        }),
+        addSong: builder.mutation<void, { name: string, audio: File }>({
+            query: (payload) => {
+                const data = new FormData()
+                data.set("name", payload.name);
+                data.set("audio", payload.audio);
+                return {
+                    url: '/songs',
+                    method: 'POST',
+                    body: data
+                }
+            },
+        }),
+        getFavoriteSongs: builder.query<SongData[], void>({
+            query: () => `/favorite/songs`,
+        }),
+        addFavoriteSong: builder.mutation<void, number>({
+            query: (id) => ({
+                url: '/favorite/songs',
+                method: 'POST',
+                body: JSON.stringify({ id }),
+                headers: {
+                    'Content-type': 'application/json',
+                },
+            }),
+        }),
+        removeFavoriteSong: builder.mutation<void, number>({
+            query: (id) => ({
+                url: '/favorite/songs',
+                method: 'DELETE',
+                body: JSON.stringify({ id }),
+                headers: {
+                    'Content-type': 'application/json',
+                },
+            }),
+        })
+
     }),
 
 })
@@ -172,5 +208,10 @@ export const {
     useGetNewsQuery,
     useSetProfileImageMutation,
     useLogoutMutation,
-    useGetUsersQuery
+    useGetUsersQuery,
+    useGetSongsQuery,
+    useAddFavoriteSongMutation,
+    useAddSongMutation,
+    useGetFavoriteSongsQuery,
+    useRemoveFavoriteSongMutation
 } = apiSlice

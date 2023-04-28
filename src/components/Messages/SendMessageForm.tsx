@@ -31,7 +31,7 @@ export function SendMessageForm({ dialogId, type }: { dialogId: number, type: "c
                 <div id="name" className="border p-2 text-sm rounded-lg w-full bg-field-color border-field-border-color placeholder-text-color-placeholder focus-within:border-active-color outline-none resize-none overflow-auto">
                     <div contentEditable ref={textRef} className="outline-none"></div>
                 </div>
-                <label htmlFor="files" className="border-2 p-2 text-center border-dashed rounded-lg cursor-pointer bg-field-color hover:border-active-color-hover text-text-color-placeholder text-sm">
+                <label htmlFor="files" className="border-2 border-field-color p-2 text-center border-dashed rounded-lg cursor-pointer bg-field-color hover:border-active-color-hover text-text-color-placeholder text-sm">
                     <img src={paperClipUrl} alt="files" className="h-5" />
                     <input id="files" onChange={onFilesChanged} type="file" className="hidden" multiple />
                 </label>

@@ -3,6 +3,8 @@ import { MoonLoader } from "react-spinners";
 import { useGetConversationMessagesQuery } from "../../redux/features/api/apiSlice";
 import { Message } from "./Message";
 import { SendMessageForm } from "./SendMessageForm";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 export function Conversation() {
     const { id } = useParams()
@@ -11,8 +13,8 @@ export function Conversation() {
         return <MoonLoader />
     }
     return (
-        <div className="max-w-4xl w-full h-full mx-auto p-4 flex flex-col gap-4">
-            <div className="h-full bg-info-color rounded-lg grow overflow-y-scroll">
+        <div className="max-w-4xl w-full h-full overflow-scroll mx-auto p-4 flex flex-col gap-4">
+            <div className="overflow-y-scroll">
                 {
                     data.map(m => <Message message={m} key={m.id} />)
                 }
