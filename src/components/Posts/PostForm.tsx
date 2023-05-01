@@ -2,9 +2,12 @@ import { useRef } from "react";
 import { useAddPostMutation } from "../../redux/features/api/apiSlice";
 
 export function PostForm() {
-    let [addPost, response] = useAddPostMutation()
+    let [addPost] = useAddPostMutation()
     const descriptionRef = useRef<HTMLDivElement>(null)
     const filesRef = useRef<HTMLInputElement>(null)
+
+    console.debug("add filenames")
+
     function onSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
         const description = descriptionRef.current!.innerText;
@@ -14,6 +17,7 @@ export function PostForm() {
         }
         addPost({ description, files })
     }
+
     return (
         <div className="w-full rounded-lg shadow border bg-info-color border-info-border-color">
             <form className="p-4" onSubmit={onSubmit}>

@@ -5,7 +5,6 @@ import { isApiError } from "../../types";
 import { Post } from "../Posts/Post";
 import { ProfileInfo } from "./ProfileInfo";
 
-
 export function Profile() {
   const { name } = useParams()
 

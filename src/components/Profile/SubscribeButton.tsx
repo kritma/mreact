@@ -5,7 +5,7 @@ export function SubscribeButton({ user }: { user: UserData }) {
     const { data } = useGetSubscriptionStateQuery(user.id)
     const [changeSubscription] = useChangeSubscriptionStateMutation()
 
-    function onSubscribePressed(event: React.MouseEvent<HTMLButtonElement>) {
+    function onSubscribePressed() {
         changeSubscription({ userId: user.id, to: !data!.isSubscribed })
     }
 

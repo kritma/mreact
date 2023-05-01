@@ -4,6 +4,7 @@ import { Dialog } from "./Dialog";
 
 export function Dialogs() {
     const { data: dialogs } = useGetDialogsQuery()
+
     if (dialogs === undefined) {
         return <MoonLoader />
     }
@@ -16,5 +17,4 @@ export function Dialogs() {
             dialogs.map(d => <Dialog dialog={d} key={d.id + d.type} />)
         }
     </div>
-
 }

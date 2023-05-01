@@ -1,5 +1,5 @@
 import { MoonLoader } from "react-spinners"
-import { useGetFavoriteSongsQuery, useGetSongsQuery } from "../../redux/features/api/apiSlice"
+import { useGetSongsQuery } from "../../redux/features/api/apiSlice"
 import { Song } from "./Song"
 import { useDispatch } from "react-redux"
 import { AppDispatch } from "../../redux/store"

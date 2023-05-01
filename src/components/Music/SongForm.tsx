@@ -5,12 +5,14 @@ export function SongForm() {
     let [addSong] = useAddSongMutation()
     const nameRef = useRef<HTMLInputElement>(null)
     const audioRef = useRef<HTMLInputElement>(null)
+
     function onSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
         const name = nameRef.current!.value;
         const audio = audioRef.current!.files![0]
         addSong({ name, audio })
     }
+
     return (
         <div className="w-full rounded-lg shadow border bg-info-color border-info-border-color">
             <form className="p-4" onSubmit={onSubmit}>

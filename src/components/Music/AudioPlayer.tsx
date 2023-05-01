@@ -1,13 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-interface PlayerProps {
-    audioSrc: string;
-    name: string;
-    userName: string
-}
-
-const AudioPlayer: React.FC<PlayerProps> = ({ audioSrc, name, userName }) => {
+export function AudioPlayer({ audioSrc, name, userName }: { audioSrc: string, name: string, userName: string }) {
     const audioRef = useRef<HTMLAudioElement>(null);
     const [isPlaying, setIsPlaying] = useState(true);
     const [duration, setDuration] = useState(0);
@@ -36,9 +30,9 @@ const AudioPlayer: React.FC<PlayerProps> = ({ audioSrc, name, userName }) => {
     }, [audioSrc])
 
     const handlePlayPause = () => {
-        const audio = audioRef.current;
+        const audio = audioRef.current!;
         if (isPlaying) {
-            audio!.pause();
+            audio.pause();
         } else {
             audio!.play();
         }
@@ -70,5 +64,3 @@ const AudioPlayer: React.FC<PlayerProps> = ({ audioSrc, name, userName }) => {
         </div>
     );
 };
-
-export default AudioPlayer;

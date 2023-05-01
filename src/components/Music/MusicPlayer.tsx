@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { AppDispatch, RootState } from "../../redux/store"
-import AudioPlayer from "./AudioPlayer"
 import { next, prev } from "../../redux/features/music/musicSlice"
+import { AudioPlayer } from "./AudioPlayer"
 
 export function MusicPlayer() {
     const currentSong = useSelector((state: RootState) => state.music.currentSong)

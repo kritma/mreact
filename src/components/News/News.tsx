@@ -2,7 +2,6 @@ import MoonLoader from "react-spinners/MoonLoader";
 import { Post } from "../Posts/Post";
 import { useGetNewsQuery } from "../../redux/features/api/apiSlice";
 
-
 export function News() {
   const { data } = useGetNewsQuery();
 

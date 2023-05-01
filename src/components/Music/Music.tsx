@@ -11,7 +11,7 @@ export function Music() {
             <input type="text" name="name" pattern="[a-zA-Z0-9_]+" id="name" onChange={e => setName(e.target.value)} className="border sm:text-sm rounded-lg block w-full p-2.5 bg-field-color border-field-border-color placeholder-text-color-placeholder text-text-color focus:border-active-color outline-none" placeholder="Song Name - Artist Name" />
             <SongForm />
             <FavoriteSongs name={name} />
-            {name !== "" ? <FoundSongs name={name} /> : null}
+            {name.trim().length !== 0 ? <FoundSongs name={name} /> : null}
         </div>
     )
 }

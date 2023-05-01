@@ -5,6 +5,7 @@ export function Login() {
     const [login, { isSuccess, data }] = useLoginMutation()
     const name = useRef<HTMLInputElement>(null)
     const password = useRef<HTMLInputElement>(null)
+
     function onSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
         login({ name: name.current!.value, password: password.current!.value })

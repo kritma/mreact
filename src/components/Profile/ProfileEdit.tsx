@@ -5,7 +5,6 @@ import { Post } from "../Posts/Post";
 import { PostForm } from "../Posts/PostForm";
 import { ProfileInfoEdit } from "./ProfileInfoEdit";
 
-
 export function ProfileEdit({ currentUser }: { currentUser: UserData }) {
   const { data } = useGetCurrentUserPostsQuery();
 

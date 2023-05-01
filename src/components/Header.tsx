@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { MusicPlayer } from "./Music/MusicPlayer";
 
 export function Header() {
@@ -14,7 +14,6 @@ export function Header() {
         </ul>
       </nav>
       <MusicPlayer />
-
     </header>
   )
 }

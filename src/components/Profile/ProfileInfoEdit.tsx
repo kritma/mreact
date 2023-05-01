@@ -7,7 +7,8 @@ export function ProfileInfoEdit({ user }: { user: UserData }) {
     const [addConversation, { data }] = useAddConversationMutation()
     const [logout] = useLogoutMutation()
     const [setImage] = useSetProfileImageMutation();
-    function onSendMessagePressed(event: React.MouseEvent<HTMLButtonElement>) {
+
+    function onSendMessagePressed() {
         addConversation(user.id)
     }
 

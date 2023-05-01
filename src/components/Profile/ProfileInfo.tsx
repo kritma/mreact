@@ -6,7 +6,7 @@ import { SubscribeButton } from "./SubscribeButton";
 export function ProfileInfo({ user }: { user: UserData }) {
     const [addConversation, { data }] = useAddConversationMutation()
 
-    function onSendMessagePressed(event: React.MouseEvent<HTMLButtonElement>) {
+    function onSendMessagePressed() {
         addConversation(user.id)
     }
 

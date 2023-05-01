@@ -15,7 +15,6 @@ export function SendMessageForm({ dialogId, type }: { dialogId: number, type: "c
         setFiles([])
     }
 
-
     function onFilesChanged(event: React.ChangeEvent<HTMLInputElement>) {
         setFiles([...event.target.files!])
     }

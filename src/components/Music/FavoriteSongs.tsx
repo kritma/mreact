@@ -3,13 +3,14 @@ import { Song } from "./Song"
 import { useDispatch } from "react-redux"
 import { AppDispatch } from "../../redux/store"
 import { setSongs } from "../../redux/features/music/musicSlice"
+import { MoonLoader } from "react-spinners"
 
 export function FavoriteSongs({ name }: { name: string }) {
     const dispatch = useDispatch<AppDispatch>()
     const { data: favoriteSongs } = useGetFavoriteSongsQuery()
 
     if (favoriteSongs === undefined) {
-        return null
+        return <MoonLoader />
     }
 
     function onPlayPressed(index: number) {

@@ -1,18 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { ApiErrorLogin, ApiErrorProfile, DialogData, MessageData, PostData, ProfileData, SongData, UserData } from '../../../types'
 
-import type {
-    BaseQueryFn,
-    FetchArgs,
-    FetchBaseQueryError,
-} from '@reduxjs/toolkit/query'
+import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
 const baseQuery = fetchBaseQuery({ baseUrl: 'http://localhost:3000/api' })
-const baseQueryCors: BaseQueryFn<
-    string | FetchArgs,
-    unknown,
-    FetchBaseQueryError
-> = async (args, api, extraOptions) => {
+
+const baseQueryCors: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extraOptions) => {
     let newArgs: FetchArgs;
     if (typeof args === "string") {
         newArgs = {
@@ -36,7 +29,7 @@ const baseQueryCors: BaseQueryFn<
 export const apiSlice = createApi({
     reducerPath: 'api',
     baseQuery: baseQueryCors,
-    tagTypes: ['CurrentUser', 'Subscriptions', 'News', 'CurrentUserPosts', 'Messages', 'Dialogs'],
+    tagTypes: ['CurrentUser', 'Subscriptions', 'News', 'CurrentUserPosts', 'Messages', 'Dialogs', 'FavoriteSongs', 'FoundSongs', 'FoundUsers'],
     endpoints: builder => ({
         login: builder.mutation<UserData | ApiErrorLogin, { name: string, password: string }>({
             query: (payload) => ({
@@ -47,7 +40,7 @@ export const apiSlice = createApi({
                     'Content-type': 'application/json',
                 },
             }),
-            invalidatesTags: ['CurrentUser', 'News', 'CurrentUserPosts', 'Subscriptions', 'Dialogs', 'Messages'],
+            invalidatesTags: ['CurrentUser', 'News', 'CurrentUserPosts', 'Subscriptions', 'Dialogs', 'Messages', 'FavoriteSongs'],
         }),
         getCurrentUser: builder.query<UserData, void>({
             query: () => '/me',
@@ -71,7 +64,7 @@ export const apiSlice = createApi({
                     body: data,
                 }
             },
-            invalidatesTags: ['CurrentUser', 'CurrentUserPosts'],
+            invalidatesTags: ['CurrentUser', 'CurrentUserPosts', 'Messages', 'News', 'FoundUsers'],
         }),
         getDialogs: builder.query<DialogData[], void>({
             query: () => '/dialogs',
@@ -147,9 +140,11 @@ export const apiSlice = createApi({
         }),
         getUsers: builder.query<UserData[], string>({
             query: (name) => `/search/users/${name}`,
+            providesTags: ['FoundUsers']
         }),
         getSongs: builder.query<SongData[], string>({
             query: (name) => `/search/songs/${name}`,
+            providesTags: ['FoundSongs']
         }),
         addSong: builder.mutation<void, { name: string, audio: File }>({
             query: (payload) => {
@@ -162,9 +157,11 @@ export const apiSlice = createApi({
                     body: data
                 }
             },
+            invalidatesTags: ['FoundSongs']
         }),
         getFavoriteSongs: builder.query<SongData[], void>({
             query: () => `/favorite/songs`,
+            providesTags: ['FavoriteSongs']
         }),
         addFavoriteSong: builder.mutation<void, number>({
             query: (id) => ({
@@ -175,6 +172,7 @@ export const apiSlice = createApi({
                     'Content-type': 'application/json',
                 },
             }),
+            invalidatesTags: ['FavoriteSongs']
         }),
         removeFavoriteSong: builder.mutation<void, number>({
             query: (id) => ({
@@ -185,14 +183,13 @@ export const apiSlice = createApi({
                     'Content-type': 'application/json',
                 },
             }),
+            invalidatesTags: ['FavoriteSongs']
         })
 
     }),
 
 })
 
-
-// Export the auto-generated hook for the `getPosts` query endpoint
 export const {
     useLoginMutation,
     useGetCurrentUserQuery,
